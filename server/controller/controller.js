@@ -1,8 +1,20 @@
+import User from "../models/UserModel";
+
 const controller = {
-  login: (req, res) => {
-    res.send("Login");
+  register: async (req, res) => {
+    const user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    try {
+      const saveUser = await user.save();
+      res.send(saveUser);
+    } catch (error) {
+      res.status(400).send(error);
+    }
   },
-  register: (req, res) => {
+  login: (req, res) => {
     res.send("Register");
   },
 };
